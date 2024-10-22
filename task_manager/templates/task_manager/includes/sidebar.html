@@ -1,0 +1,49 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="width: 250px;">
+  <!-- Brand Logo -->
+  <a href="{% url 'task_manager:home_page' %}" class="brand-link">
+    <span class="brand-text font-weight-light">Task Manager</span>
+  </a>
+
+<div class="sidebar">
+  <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="info">
+      {% if user.is_authenticated %}
+        <li class="list-group-item">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
+        <li class="list-group-item"><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+      {% else %}
+        <li class="list-group-item"><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="{% url 'task_manager:home_page' %}" class="nav-link">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Home</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'task_manager:task-list' %}" class="nav-link">
+            <i class="nav-icon fas fa-tasks"></i>
+            <p>Tasks</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{% url 'task_manager:worker-list' %}" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            <p>Workers</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
