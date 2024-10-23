@@ -11,8 +11,12 @@ db.sqlite3
 =======
 venv
 <<<<<<< HEAD
+<<<<<<< HEAD
 .idea/
 =======
 .idea/
 >>>>>>> 607ea1a (Add the basic structure of the project)
 >>>>>>> 2471ea20bd0c0044298c9b1dcdb1dfe9603c9be4
+=======
+.idea/
+>>>>>>> develop
