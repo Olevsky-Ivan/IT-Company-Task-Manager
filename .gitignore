@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .idea/
 .vscode/
 *.iml
@@ -7,3 +8,7 @@ new_venv/
 .pytest_cache/
 **__pycache__/
 db.sqlite3
+=======
+venv
+.idea/
+>>>>>>> 607ea1a (Add the basic structure of the project)
