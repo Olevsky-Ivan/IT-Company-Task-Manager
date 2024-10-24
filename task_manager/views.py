@@ -120,11 +120,9 @@ class LoggedOutView(TemplateView):
     template_name = 'registration/logged_out.html'
 
 
-def logged_out(request: HttpRequest) -> redirect:
+def logged_out(request: HttpRequest):
     logout(request)
-    messages.info(request, 'You have successfully logged out.')
-    return redirect('logged_out_page')
-
+    return redirect('task_manager:home_page')
 
 @login_required
 def worker_detail(request: HttpRequest, pk: int) -> render:
