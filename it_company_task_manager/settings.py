@@ -16,16 +16,12 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Завантаження SECRET_KEY з .env файлу
 SECRET_KEY = config('SECRET_KEY')
 
-# DEBUG також можна контролювати через .env
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -132,11 +128,14 @@ AUTH_USER_MODEL = 'task_manager.Worker'
 
 PAGINATION_SIZE = 5
 
-
+# Security settings
+SECURE_HSTS_SECONDS = 31536000  # One year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
-SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-LOGIN_URL = 'login'
-LOGOUT_REDIRECT_URL = 'login'
-LOGIN_REDIRECT_URL = '/'
+CSRF_COOKIE_SECURE = False
 
+LOGIN_REDIRECT_URL = "/"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
