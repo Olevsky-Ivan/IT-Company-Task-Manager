@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
 from pathlib import Path
 from decouple import config
 import os
@@ -18,9 +17,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 
+<<<<<<< HEAD
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['127.0.0.1']
+=======
+DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+
+>>>>>>> my_temporary_branch
 
 
 INSTALLED_APPS = [

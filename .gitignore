@@ -8,6 +8,7 @@
 __pycache__/
 local_settings.py
 db.sqlite3
+<<<<<<< HEAD
 db.sqlite3-journal
 media
 
@@ -352,3 +353,6 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm+all,django
+=======
+venv
+>>>>>>> my_temporary_branch
