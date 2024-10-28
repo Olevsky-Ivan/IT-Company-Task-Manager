@@ -5,21 +5,21 @@ from django.contrib.auth.models import AbstractUser
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
-    def __str__(self: 'Tag') -> str:
+    def __str__(self):
         return self.name
 
 
 class Position(models.Model):
     name = models.CharField(max_length=100)
 
-    def __str__(self: 'Position') -> str:
+    def __str__(self):
         return self.name
 
 
 class TaskType(models.Model):
     name = models.CharField(max_length=100)
 
-    def __str__(self: 'TaskType') -> str:
+    def __str__(self):
         return self.name
 
 
@@ -32,7 +32,7 @@ class Worker(AbstractUser):
     )
     phone_number = models.CharField(max_length=15, null=True, blank=True)
 
-    def __str__(self: 'Worker') -> str:
+    def __str__(self):
         return self.username
 
 
@@ -60,13 +60,13 @@ class Task(models.Model):
     assignees = models.ManyToManyField(
         Worker,
         blank=True,
-        related_name='assignees'
+        related_name='tasks'
     )
     tag = models.ManyToManyField(
         Tag,
         blank=True,
-        related_name='tags'
+        related_name='tasks'
     )
 
-    def __str__(self: 'Task') -> str:
+    def __str__(self):
         return self.name

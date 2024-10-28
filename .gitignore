@@ -353,6 +353,4 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm+all,django
-=======
 venv
->>>>>>> my_temporary_branch

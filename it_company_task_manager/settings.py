@@ -17,16 +17,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 
-<<<<<<< HEAD
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['127.0.0.1']
-=======
-DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
->>>>>>> my_temporary_branch
 
 
 INSTALLED_APPS = [
