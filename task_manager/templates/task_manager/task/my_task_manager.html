@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="mb-4">My Tasks</h2>
+
+    {% if my_tasks %}
+      <div class="row">
+        {% for task in my_tasks %}
+          <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">{{ task.name }}</h5>
+                <p class="card-text">
+                  {{ task.description|default:"No description available." }}
+                </p>
+                <a href="{% url 'task_manager:task-detail' pk=task.id %}" class="btn btn-primary">
+                  View Task
+                </a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-info" role="alert">
+        You currently have no tasks assigned.
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

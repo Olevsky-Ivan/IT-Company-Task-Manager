@@ -13,11 +13,13 @@ from task_manager.views import (
     remove_task_from_worker,
     worker_detail,
     home_page,
+    my_task_manager
 )
 
 app_name = 'task_manager'
 
 urlpatterns = [
+    path('my_task/', my_task_manager, name='my-tasks'),
     path('task/', TaskListView.as_view(), name='task-list'),
     path('task/<int:pk>/', TaskDetailView.as_view(), name='task-detail'),
     path('task/create/', TaskCreateView.as_view(), name='task-create'),

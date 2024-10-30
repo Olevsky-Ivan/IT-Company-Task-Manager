@@ -65,7 +65,7 @@ class Task(models.Model):
     tag = models.ManyToManyField(
         Tag,
         blank=True,
-        related_name='tags'
+        related_name='tasks'
     )
 
     def __str__(self):
