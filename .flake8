@@ -11,4 +11,7 @@ exclude =
     manage.py,
     asgi.py,
     settings.py,
-    wsgi.py
+    wsgi.py,
+    base.py,
+    prod.py,
+    dev.py

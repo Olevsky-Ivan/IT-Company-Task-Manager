@@ -49,7 +49,15 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['name', 'description', 'deadline', 'priority', 'task_type', 'assignees']
+        fields = [
+            'name',
+            'description',
+            'deadline',
+            'priority',
+            'task_type',
+            'assignees'
+        ]
+
 
 class TaskUpdateForm(forms.ModelForm):
     class Meta:
@@ -77,13 +85,13 @@ class TaskSearchForm(forms.Form):
 class TaskFilterForm(forms.Form):
     is_completed = forms.BooleanField(
         required=False,
-        label="Completed Tasks",
+        label='Completed Tasks',
     )
     task_type = forms.ModelChoiceField(
         required=False,
         queryset=TaskType.objects.all(),
-        label="Task Type",
-        empty_label="Any Task Type"
+        label='Task Type',
+        empty_label='Any Task Type'
     )
 
 
@@ -91,12 +99,12 @@ class WorkerFilterForm(forms.Form):
     phone_number = forms.ModelChoiceField(
         required=False,
         queryset=Worker.objects.all(),
-        label="Phone Number",
-        empty_label="Any Phone Number"
+        label='Phone Number',
+        empty_label='Any Phone Number'
     )
     position = forms.ModelChoiceField(
         required=False,
         queryset=Worker.objects.all(),
-        label="Position",
-        empty_label="Any Position"
+        label='Position',
+        empty_label='Any Position'
     )

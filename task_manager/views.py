@@ -1,3 +1,4 @@
+from typing import Any, Optional
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
@@ -7,7 +8,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from task_manager.models import Task, Worker
 from task_manager.forms import (
     TaskForm,
@@ -20,27 +21,29 @@ from task_manager.forms import (
     WorkerFilterForm
 )
 
+
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     context_object_name = 'task_list'
     template_name = 'task_manager/task/task_list.html'
     paginate_by = settings.PAGINATION_SIZE
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, *, object_list: Optional[list] = None,
+                         **kwargs: Any) -> dict:
         context = super().get_context_data(**kwargs)
         context['search_form'] = TaskSearchForm()
-        context["filter_form"] = TaskFilterForm(prefix="filter")
+        context['filter_form'] = TaskFilterForm(prefix='filter')
         return context
 
-    def get_queryset(self):
+    def get_queryset(self) -> Any:
         queryset = super().get_queryset()
         form = TaskSearchForm(self.request.GET)
 
         if form.is_valid():
-<<<<<<< HEAD
-            queryset = queryset.filter(name__icontains=form.cleaned_data['name'])
-        return queryset
-=======
+            queryset = queryset.filter(
+                name__icontains=form.cleaned_data['name']
+            )
+
             name = form.cleaned_data.get('name')
             if name:
                 queryset = queryset.filter(name__icontains=name)
@@ -55,16 +58,18 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 
             phone_number = form.cleaned_data.get('phone_number')
             if phone_number:
-                queryset = queryset.filter(phone_number__icontains=phone_number)
+                queryset = queryset.filter(
+                    phone_number__icontains=phone_number
+                )
 
         return queryset
 
->>>>>>> f2919bdf2b8d1f371c877cb7c19922a4b1a32fc5
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
     context_object_name = 'task'
     template_name = 'task_manager/task/task_detail.html'
+
 
 class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
@@ -73,6 +78,7 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy('task_manager:task-list')
     template_name = 'task_manager/task/task_form.html'
 
+
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     context_object_name = 'task'
@@ -80,10 +86,12 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'task_manager/task/task_form.html'
     success_url = reverse_lazy('task_manager:task-list')
 
+
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     context_object_name = 'task'
     success_url = reverse_lazy('task_manager:task-list')
+
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
@@ -91,17 +99,13 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     template_name = 'task_manager/worker/worker_list.html'
     paginate_by = settings.PAGINATION_SIZE
 
-<<<<<<< HEAD
-    def get_context_data(self, *, object_list=None, **kwargs):
-=======
-    def get_context_data(self, **kwargs):
->>>>>>> f2919bdf2b8d1f371c877cb7c19922a4b1a32fc5
+    def get_context_data(self, **kwargs: Any) -> dict:
         context = super().get_context_data(**kwargs)
         context['search_form'] = WorkerSearchForm()
         context['filter_form'] = WorkerFilterForm(self.request.GET)
         return context
 
-    def get_queryset(self):
+    def get_queryset(self) -> Any:
         queryset = super().get_queryset()
         filter_form = WorkerFilterForm(self.request.GET)
 
@@ -117,9 +121,12 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
                 queryset = queryset.filter(position=position)
 
             if phone_number:
-                queryset = queryset.filter(phone_number__icontains=phone_number)
+                queryset = queryset.filter(
+                    phone_number__icontains=phone_number
+                )
 
         return queryset
+
 
 class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Worker
@@ -127,30 +134,42 @@ class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy('task_manager:worker-list')
     template_name = 'task_manager/worker/worker_form.html'
 
+
 class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Worker
     success_url = reverse_lazy('task_manager:worker-list')
     form_class = WorkerUpdateForm
     template_name = 'task_manager/worker/worker_form.html'
 
+
 class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Worker
     context_object_name = 'worker'
     success_url = reverse_lazy('task_manager:worker-list')
 
+
 class LoggedOutView(TemplateView):
     template_name = 'registration/logged_out.html'
 
-def logged_out(request):
+
+def logged_out(request: HttpRequest) -> HttpResponse:
     logout(request)
     messages.info(request, 'You have successfully logged out.')
     return redirect('logged_out_page')
 
+
 @login_required
-def worker_detail(request, pk):
+def worker_detail(request: HttpRequest, pk: int) -> HttpResponse:
     worker = get_object_or_404(Worker, pk=pk)
-    completed_tasks = Task.objects.filter(assignees=worker, is_completed=True)
-    incomplete_tasks = Task.objects.filter(assignees=worker, is_completed=False)
+    completed_tasks = Task.objects.filter(
+        assignees=worker,
+        is_completed=True
+    )
+
+    incomplete_tasks = Task.objects.filter(
+        assignees=worker,
+        is_completed=False
+    )
 
     return render(request, 'task_manager/worker/worker_detail.html', {
         'worker': worker,
@@ -158,20 +177,26 @@ def worker_detail(request, pk):
         'incomplete_tasks': incomplete_tasks,
     })
 
+
 @login_required
-def add_task_to_worker(request, task_id):
+def add_task_to_worker(request: HttpRequest, task_id: int) -> HttpResponse:
     task = get_object_or_404(Task, id=task_id)
     task.assignees.add(request.user)
     return redirect('task_manager:task-detail', pk=task.id)
 
+
 @login_required
-def remove_task_from_worker(request, task_id):
+def remove_task_from_worker(
+        request: HttpRequest,
+        task_id: int
+) -> HttpResponse:
     task = get_object_or_404(Task, id=task_id)
     task.assignees.remove(request.user)
     return redirect('task_manager:task-detail', pk=task.id)
 
+
 @login_required
-def home_page(request):
+def home_page(request: HttpRequest) -> HttpResponse:
     num_tasks = Task.objects.count()
     num_workers = Worker.objects.count()
 
@@ -182,7 +207,12 @@ def home_page(request):
 
     return render(request, 'task_manager/home_page.html', context)
 
+
 @login_required
-def my_task_manager(request):
+def my_task_manager(request: HttpRequest) -> HttpResponse:
     my_tasks = Task.objects.filter(assignees=request.user)
-    return render(request, 'task_manager/task/my_task_manager.html', {'my_tasks': my_tasks})
+    return render(
+        request,
+        'task_manager/task/my_task_manager.html',
+        {'my_tasks': my_tasks}
+    )
