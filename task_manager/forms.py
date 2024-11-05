@@ -7,6 +7,7 @@ class WorkerForm(UserCreationForm):
     class Meta:
         model = Worker
         fields = [
+            'username',
             'first_name',
             'last_name',
             'email',
