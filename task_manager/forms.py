@@ -20,6 +20,7 @@ class WorkerUpdateForm(forms.ModelForm):
     class Meta:
         model = Worker
         fields = [
+            'username',
             'first_name',
             'last_name',
             'email',
