@@ -130,7 +130,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env                   # Додаємо цей рядок для ігнорування файлу .env
+.env
 .venv
 env/
 venv/
@@ -345,9 +345,6 @@ fabric.properties
 .poetry/
 
 # Virtual environment
-venv/
-.venv/
-env/
-ENV/
-env.bak/
-venv.bak/
+
+staticfiles/admin
+staticfiles/style.css

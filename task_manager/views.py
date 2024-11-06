@@ -28,14 +28,18 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     template_name = 'task_manager/task/task_list.html'
     paginate_by = settings.PAGINATION_SIZE
 
-    def get_context_data(self, *, object_list: Optional[list] = None,
-                         **kwargs: Any) -> dict:
+    def get_context_data(
+            self: 'TaskListView',
+            *,
+            object_list: Optional[list] = None,
+            **kwargs: Any
+    ) -> dict:
         context = super().get_context_data(**kwargs)
         context['search_form'] = TaskSearchForm()
         context['filter_form'] = TaskFilterForm(prefix='filter')
         return context
 
-    def get_queryset(self) -> Any:
+    def get_queryset(self: 'TaskListView') -> Any:
         queryset = super().get_queryset()
         form = TaskSearchForm(self.request.GET)
 
@@ -99,13 +103,13 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     template_name = 'task_manager/worker/worker_list.html'
     paginate_by = settings.PAGINATION_SIZE
 
-    def get_context_data(self, **kwargs: Any) -> dict:
+    def get_context_data(self: 'WorkerListView', **kwargs: Any) -> dict:
         context = super().get_context_data(**kwargs)
         context['search_form'] = WorkerSearchForm()
         context['filter_form'] = WorkerFilterForm(self.request.GET)
         return context
 
-    def get_queryset(self) -> Any:
+    def get_queryset(self: 'WorkerListView') -> Any:
         queryset = super().get_queryset()
         filter_form = WorkerFilterForm(self.request.GET)
 
