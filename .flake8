@@ -1,0 +1,17 @@
+[flake8]
+exclude =
+    new_venv,
+    .venv,
+    venv,
+    __pycache__,
+    *.egg-info,
+    .git,
+    .svn,
+    */migrations/*,
+    manage.py,
+    asgi.py,
+    settings.py,
+    wsgi.py,
+    base.py,
+    prod.py,
+    dev.py

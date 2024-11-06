@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="d-flex justify-content-between align-items-center">
+    {{ task.name }}
+    <div class="button-group">
+      <a href="{% url 'task_manager:task-update' task.id %}" class="btn btn-warning">Update Task</a>
+      <form action="{% url 'task_manager:task-delete' task.id %}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this task?');">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete Task</button>
+      </form>
+      {% if request.user in task.assignees.all %}
+        <form action="{% url 'task_manager:remove_task_from_worker' task.id %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Remove from my tasks</button>
+        </form>
+      {% else %}
+        <form action="{% url 'task_manager:add_task_to_worker' task.id %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary">Add to my tasks</button>
+        </form>
+      {% endif %}
+    </div>
+  </h1>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="mb-4">Task Details</h5>
+      <ul class="list-group">
+        <li class="list-group-item"><strong>Description:</strong> {{ task.description }}</li>
+        <li class="list-group-item"><strong>Deadline:</strong> {{ task.deadline }}</li>
+        <li class="list-group-item"><strong>Priority:</strong> {{ task.priority }}</li>
+        <li class="list-group-item"><strong>Task Type:</strong> {{ task.task_type }}</li>
+        <li class="list-group-item"><strong>Workers:</strong> 
+          {% if task.assignees.all %}
+            {{ task.assignees.all|join:", " }}
+          {% else %}
+            There are no assigned workers.
+          {% endif %}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

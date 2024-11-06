@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Task Manager for IT Company</h1>
+            <p>This manager helps with tasks for workers. It is a simple and convenient app!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ num_tasks }}</h3>
+                <p>Number of Tasks</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-tasks"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ num_workers }}</h3>
+                <p>Number of Workers</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-users"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3><a href="{% url 'task_manager:task-create' %}" class="btn btn-outline-light">Create Task</a></h3>
+                <p>Add a new task</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-plus-circle"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-secondary">
+              <div class="inner">
+                <h3><a href="{% url 'task_manager:task-list' %}" class="btn btn-outline-light">View All Tasks</a></h3>
+                <p>See all tasks</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-eye"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3><a href="{% url 'task_manager:worker-list' %}" class="btn btn-outline-light">Manage Workers</a></h3>
+                <p>Manage employee information</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-user-cog"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock %}
